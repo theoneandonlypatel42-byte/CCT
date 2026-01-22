@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    height: 95vh;
+    background-image: url("6ebeec04-dbae-4c13-acb0-985e88055c65.png"); /* main page background */
+    background-size:  101%;
+    background-position: center; /* keeps it centered */
+    background-repeat: no-repeat; /* prevents tiling */
+    background-attachment: fixed; /* keeps it in place when scrolling */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Start menu container */
+#startMenu {
+    background-color: bisque;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#board {
+    background-size: 70%; /* smaller = zoomed out */
+    background-position: center; /* keeps it centered */
+    background-repeat: no-repeat; /* don't tile the image */
+    background-color: black; /* fallback if image fails to load */
+    border-radius: 10px;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+#winScreen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        #1b2735 0%,
+        #090a0f 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: gold;
+    font-family: 'Arial', sans-serif;
+}
+
+#winScreen h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+#winScreen p {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+#winScreen button {
+    font-size: 22px;
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    background: gold;
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+#winScreen.hidden{
+    display: none;
+}
+
+#startMenu {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #000428, #004e92);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+#startMenu h1 {
+    font-size: 72px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px yellow;
+}
+
+#startMenu p {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: white;
+}
+
+#startMenu button {
+    font-size: 24px;
+    padding: 12px 30px;
+    border-radius: 12px;
+    border: none;
+    background: yellow;
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#startMenu button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px yellow;
+}
+
+
+#LoseScreen{
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #a72d2d, #305d85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: yellow;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+#LoseScreen button{ 
+    font-size: 24px;
+    padding: 12px 30px;
+    border-radius: 12px;
+    border: none;
+    background: rgb(129, 65, 90);
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#winScreen,
+#LoseScreen,
+#board {
+  display: none;
+}

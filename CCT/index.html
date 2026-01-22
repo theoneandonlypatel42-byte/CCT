@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man,</title>
+    <link rel="stylesheet" href = 'pacman.css'>
+</head>
+<body>
+    
+    <div id = "startMenu">
+        <h1>PAC-MAN!!!</h1>
+        <p>Use Arrow keys W/A/S/D or arrow keys to move Pac-Man</p>
+        <button id = "startGame">BEGIN GAME!</button>
+    </div>
+
+    <div id = 'gameContainer'>
+        <canvas id = "board"></canvas>
+    </div>
+
+
+    <div id="winScreen" class= 'hidden'>
+        <h1>🎉 YOU WIN!</h1>
+        <P>Your Final Score: <span id = 'WinScore'>0</span></P>
+        <button id ="Playagain">Play Again</button>
+    </div>
+
+
+    <div id = "LoseScreen" class= 'hidden'>
+        <h1>YOU LOSE 😞 </h1>
+         <P>Your Final Score: <span id = 'finalScore'>0</span></P>
+        <button id ="PlayagainLose">Play Again</button>
+
+    </div>
+
+    <script src ="pacman.js"></script>
+</body>
+</html>
