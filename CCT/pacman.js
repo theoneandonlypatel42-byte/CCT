@@ -1,7 +1,24 @@
+//TO DO LIST BEFORE SUBMISSION:
+
+//CENTER LOSE SCREEN TEXT
+//MAKE SURE ALL THE MAPS WORK FINE 
+//ADD AUDIO OR SMTH FOR THE LOSE SCREEN
+
+
+const backgroundMusic = new Audio("GamePlay.mp3");
+const eatSound = new Audio("eat.wav");
+
+
 let currentLevel = 1;
 let gameStarted = false;
 //check the 2 and 3 tilemaps to make sure no ghosts are getting stuck and add sounds, and check over code and show Mr.D and maybe add the speed thing and make it so it continues even if the person is alive on level 3
 function startGame() {
+
+    backgroundMusic.loop = true;
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.volume = 0.3;
+    backgroundMusic.play();
+
     gameStarted = true;
 
     document.getElementById("startMenu").style.display = "none";
@@ -140,6 +157,8 @@ function showWinScreen() {
 
 //for lose screen
 function showLoseScreen(){
+    backgroundMusic.loop = false;
+
     gameOver = true;
 
     document.getElementById("board").style.display = "none";
@@ -484,6 +503,9 @@ function move(){
         if (collision(pacman, food)){
             food_points = food;
             score += 10;
+
+            backgroundMusic.currentTime = 1;
+            eatSound.play();
             break;
         }
     }

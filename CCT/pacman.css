@@ -9,6 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 
@@ -132,6 +133,7 @@ body {
     font-size: 24px;
     padding: 12px 30px;
     border-radius: 12px;
+    text-align: center;
     border: none;
     background: rgb(129, 65, 90);
     color: black;
