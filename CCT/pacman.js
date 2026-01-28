@@ -1,10 +1,10 @@
 //TO DO LIST BEFORE SUBMISSION:
+//see if win screen works 
+//see if the levels switch when passed
+//make sure all the comments are good and the indentation is fine all code works without any error
 
-//CENTER LOSE SCREEN TEXT
-//MAKE SURE ALL THE MAPS WORK FINE 
-//ADD AUDIO OR SMTH FOR THE LOSE SCREEN
-
-
+const winSound = new Audio("Win.mp3")
+const loseSound = new Audio("Lose.wav");
 const backgroundMusic = new Audio("GamePlay.mp3");
 const eatSound = new Audio("eat.wav");
 
@@ -15,7 +15,6 @@ let gameStarted = false;
 function startGame() {
 
     backgroundMusic.loop = true;
-    backgroundMusic.currentTime = 0;
     backgroundMusic.volume = 0.3;
     backgroundMusic.play();
 
@@ -26,8 +25,11 @@ function startGame() {
     document.getElementById("winScreen").classList.add("hidden");
 
     loadMap1();
+    
     resetPositions(); 
     update();
+
+    //setTimeout(showWinScreen, 1000);//to check the win screen
 }
 
 document.getElementById('startGame').onclick = startGame; //starts the game
@@ -69,21 +71,21 @@ const tileMap1 = [
 "X       bpo       X",
 "X XXX   XXX   XXX X",
 "X        X        X",
-"XXX  XXXX XXXX  XXX",
+"X X  XXXX XXXX  X X",
 "X                 X",
 "X XXXX   X   XXXX X",
 "X        P        X",
-"X XXXX XXXXX XXXX X",
+"X XXX  XXXXX  XXX X",
 "X                 X",
+"X  XXX   X   XXX  X",
 "X        X        X",
-"X                 X",
 "XXXXXXXXXXXXXXXXXXX"
 ];
 
 const tileMap2 = [
 "XXXXXXXXXXXXXXXXXXX",
 "XX               XX",
-"X XXXX XXXXX XXXX X",
+"X  XXX XXXXX XXX  X",
 "X X               X",
 "X X XXXX X XXXX X X",
 "X X      X      X X",
@@ -99,32 +101,32 @@ const tileMap2 = [
 "X        P        X",
 "X                 X",
 "X XXXX   X   XXXX X",
-"X                 X",
+"X       XXX       X",
 "XX               XX",
 "XXXXXXXXXXXXXXXXXXX"
 ];
 
 const tileMap3 = [
 "XXXXXXXXXXXXXXXXXXX",
+"X        X        X",
+"X XXXX   X   XXXX X",
 "X                 X",
 "X XXXX XXXXX XXXX X",
 "X                 X",
-"X XXXX XXXXX XXXX X",
-"X                 X",
-"X XXXX XXXXX XXXX X",
-"X                 X",
-"X        r        X",
+"XXXX XXXX XXXX XXXX",
+"X        X        X",
+"X XXXX   r   XXXX X",
 "X       bpo       X",
+"X XXX   XXX   XXX X",
+"X        X        X",
+"X X  XXXX XXXX  X X",
 "X                 X",
-"X XXXX XXXXX XXXX X",
-"X                 X",
-"X XXXX XXXXX XXXX X",
-"X                 X",
+"X XXXX   X   XXXX X",
 "X        P        X",
+"X XXX  XXXXX  XXX X",
 "X                 X",
-"X XXXX XXXXX XXXX X",
-"X                 X",
-"X                 X",
+"X  XXX   X   XXX  X",
+"X        X        X",
 "XXXXXXXXXXXXXXXXXXX"
 ];
 
@@ -144,6 +146,12 @@ const keys = {};//stores keys pressed
 function showWinScreen() {
     gameOver = true;
 
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+
+    winSound.currentTime = 0;
+    winSound.play();
+
     // hide game board
     document.getElementById("board").style.display = "none";
 
@@ -157,7 +165,10 @@ function showWinScreen() {
 
 //for lose screen
 function showLoseScreen(){
-    backgroundMusic.loop = false;
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+
+    loseSound.play();
 
     gameOver = true;
 
@@ -165,9 +176,10 @@ function showLoseScreen(){
 
     document.getElementById("LoseScreen").classList.remove("hidden");
 
+    document.getElementById("LoseScreen").style.display = "flex";
+
     document.getElementById("finalScore").textContent = score;
 
-    document.getElementById("LoseScreen").style.display = "block";
 }
 
 //for the play again button
@@ -462,13 +474,11 @@ function move(){
         }
     }
 
-    if (pacman.x < 0 || pacman.x + pacman.width > boardWidth ||
-        pacman.y < 0 || pacman.y + pacman.height > boardHeight){
+    if (pacman.x < 0 || pacman.x + pacman.width > boardWidth ||pacman.y < 0 || pacman.y + pacman.height > boardHeight){
         pacman.x -= pacman.velocityX; //
         pacman.y -= pacman.velocityY; //move pacman back to where it was  
-        }
+    }
     
-
     for (let ghost of ghosts.values()){
         if(collision(ghost, pacman)){
             lives -= 1;
@@ -477,17 +487,14 @@ function move(){
                 return;
             }
             resetPositions();
+            return;
         }
-       if (Math.random() < 0.02) { // 2% chance each frame to change direction
-        const newDir = directions[Math.floor(Math.random() * 4)];
-        ghost.updateDirection(newDir);
-}
-
-
-        ghost.x += ghost.velocityX; 
-        ghost.y += ghost.velocityY; 
-        for (let wall of walls.values()){
-            if (collision(ghost, wall) || ghost.x <= 0 || ghost.x + ghost.width >= boardWidth){ //if ghost collides with a wall or goes out of bounds
+            //move ghost
+            ghost.x += ghost.velocityX; 
+            ghost.y += ghost.velocityY; 
+            //for wall collision
+            for (let wall of walls.values()){
+                if (collision(ghost, wall) || ghost.x <= 0 || ghost.x + ghost.width >= boardWidth){ //if ghost collides with a wall or goes out of bounds
                 ghost.x -= ghost.velocityX; 
                 ghost.y -= ghost.velocityY; 
                 const newDirection = directions[Math.floor(Math.random() * 4)];
@@ -504,7 +511,8 @@ function move(){
             food_points = food;
             score += 10;
 
-            backgroundMusic.currentTime = 1;
+            eatSound.currentTime = 0;
+            eatSound.volume = 0.1;
             eatSound.play();
             break;
         }
@@ -536,7 +544,7 @@ if (gameStarted && foods.size === 0 && score > 0 && !gameWon) {
 
     resetPositions();
     return;
-}
+    }
 }
 
 
