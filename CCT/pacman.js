@@ -23,9 +23,8 @@ function startGame() {
     document.getElementById("startMenu").style.display = "none";
     document.getElementById("board").style.display = "block";
     document.getElementById("winScreen").classList.add("hidden");
-
+ 
     loadMap1();
-    
     resetPositions(); 
     update();
 
@@ -547,9 +546,10 @@ if (gameStarted && foods.size === 0 && score > 0 && !gameWon) {
     }
 }
 
-
+//checks if 2 objects are colliding
 function collision(a, b){
-    return a.x < b.x + b.width &&
+     // Returns true if object A overlaps object B
+    return a.x < b.x + b.width && //
             a.x + a.width > b.x &&
             a.y < b.y + b.height &&
             a.y + a.height > b.y;    
